@@ -1,0 +1,113 @@
+type http_request_result = 
+ record {
+   body: blob;
+   headers: vec http_header;
+   status: nat;
+ };
+type http_header = 
+ record {
+   name: text;
+   value: text;
+ };
+type Tree = 
+ variant {
+   black: record {
+            Tree;
+            text;
+            text;
+            Tree;
+          };
+   leaf;
+   red: record {
+          Tree;
+          text;
+          text;
+          Tree;
+        };
+ };
+type TransformationOutput = 
+ record {
+   body: blob;
+   headers: vec http_header;
+   status: nat;
+ };
+type TransformationInput = 
+ record {
+   context: blob;
+   response: http_request_result;
+ };
+type Map = 
+ record {
+   root: Tree;
+   size: nat;
+ };
+type FileReference = 
+ record {
+   hash: text;
+   path: text;
+ };
+type CryptoAsset = 
+ record {
+   description: text;
+   marketCap: float64;
+   name: text;
+   percentageChange: float64;
+   price: float64;
+   symbol: text;
+   volume: float64;
+   volumeMarketCapRatio: float64;
+ };
+type ApiResponse = 
+ variant {
+   error: ApiError;
+   success: vec CryptoAsset;
+ };
+type ApiError = 
+ record {
+   code: int;
+   message: text;
+   source: text;
+ };
+service : {
+  dropFileReference: (path: text) -> ();
+  fetchBinanceFuturesAssets: () -> ();
+  fetchCoinGeckoMarketCap: () -> ();
+  fetchCoinMarketCapMarketCap: () -> ();
+  fetchRealTimeData: () -> (ApiResponse);
+  fetchWithRetry: (retries: nat) -> (ApiResponse);
+  getAggregateMarketData: () ->
+   (record {
+      totalExcludingBTC: float64;
+      totalExcludingBTCAndETH: float64;
+      totalMarketCap: float64;
+      totalVolume: float64;
+    }) query;
+  getAggregatedMarketCap: () -> (float64) query;
+  getCapitalFlowVisualizationData: () ->
+   (record {
+      cryptoToUsd: float64;
+      inflow: float64;
+      outflow: float64;
+      stablecoins: float64;
+      totalCrypto: float64;
+      totalExcludingBTC: float64;
+      totalExcludingBTCAndETH: float64;
+      usdCenter: float64;
+      usdToCrypto: float64;
+    }) query;
+  getCurrentTopAsset: () -> (ApiResponse) query;
+  getFileReference: (path: text) -> (FileReference);
+  getLastUpdateTime: () -> (int) query;
+  getMarketCapSources: () ->
+   (record {
+      aggregated: float64;
+      coinGecko: float64;
+      coinMarketCap: float64;
+    }) query;
+  getPortugueseLabels: () -> (Map) query;
+  getTopCryptoAssets: () -> (ApiResponse) query;
+  listFileReferences: () -> (vec FileReference);
+  registerFileReference: (path: text, hash: text) -> ();
+  transform: (input: TransformationInput) -> (TransformationOutput) query;
+  updateCapitalFlowData: () -> (ApiResponse);
+}

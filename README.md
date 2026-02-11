@@ -1,2 +1,3 @@
-# crypto-collie-capital-flow-production-release-with-real-payment-processing-teleg
-Exported from Caffeine project: Apply luxurious high-contrast black &amp; gold theme; fix white-on-white overlays; remove tab translucency (keep Flow first page unchanged)
+## 
+
+To run app build and run docker image: `docker build -t app . docker run -it --network host app`

@@ -1,0 +1,44 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Sync selected opportunity symbol across Dashboard tabs",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Unify Dashboard symbol selection across Opportunity Recognition, Market (Market Turn Monitor), and 3m Checklist tabs with a shared default of BTCUSDT.",
+      "acceptanceCriteria": [
+        "When a user selects a symbol in Opportunity Recognition, the Market tab selector value updates to that symbol and MarketTrendMonitor renders using that symbol.",
+        "When a user selects a symbol in Opportunity Recognition, the Checklist tab selector value updates to that symbol and ChecklistSignalsPanel3m renders using that symbol.",
+        "When a user changes the symbol using the selector in the Market tab, the Checklist tab uses the same symbol (and vice versa).",
+        "The shared symbol defaults to \"BTCUSDT\" on first load (matching current behavior)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/Dashboard.tsx",
+          "operation": "modify",
+          "description": "Replace the separate marketSymbol/checklistSymbol states with a single shared selectedSymbol state (defaulting to \"BTCUSDT\") used by both Market and Checklist tabs. Wire OrderBookSymbolSelector in both tabs to read/write the shared selectedSymbol, and pass selectedSymbol to MarketTrendMonitor and ChecklistSignalsPanel3m so both render from the same source of truth."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Allow OpportunityRecognitionPanel to notify the Dashboard when an opportunity symbol is selected so the shared symbol updates automatically while preserving the existing details dialog behavior.",
+      "acceptanceCriteria": [
+        "OpportunityRecognitionPanel accepts a prop (e.g., onSelectSymbol(symbol: string)) that is called with the clicked opportunity row’s symbol.",
+        "Clicking an opportunity row still opens the details dialog as it does today, and also updates the shared Dashboard symbol state to the clicked symbol."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/OpportunityRecognitionPanel.tsx",
+          "operation": "modify",
+          "description": "Add an optional symbol-selection callback prop (e.g., onSelectSymbol) and invoke it with the clicked row’s symbol when a user selects an opportunity, while preserving current behavior of opening the details dialog (including the Info button path)."
+        },
+        {
+          "path": "frontend/src/pages/Dashboard.tsx",
+          "operation": "modify",
+          "description": "Pass a callback into OpportunityRecognitionPanel that updates the shared selectedSymbol state when a row is selected, ensuring the Market and Checklist tab selectors and rendered panels stay in sync without adding new tabs/routes."
+        }
+      ]
+    }
+  ]
+}

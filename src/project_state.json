@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "New project",
+  "architectural_notes": [
+    "Manter um estado global (ou compartilhado) do par de trade selecionado para refletir automaticamente a seleção entre as abas Oportunidades, Market, Turn Monitor e 3 Min Checklist."
+  ],
+  "known_issues": [],
+  "isFixRequest": true,
+  "existing_features": [
+    {
+      "id": "feature-create-a-single-shared-selected-trading-pair-state-for-the-dashboard-tabs-so-that-changing-the-symbol-in-any-one-of-these-places-updates-the-others-automatically-1-the-selected-opportunity-in-the-opportunity-recognition-oportunidades-tab-2-the-market-tab-including-market-turn-monitor-and-3-the-checklist-tab-3m-checklist",
+      "title": "Create a single shared \"selected trading pair\" state for the Dashboard tabs so that changing the symbol in any one of these places updates the others automatically: (1) the selected opportunity in the Opportunity Recognition (Oportunidades) tab, (2) the Market tab (including Market Turn Monitor), and (3) the Checklist tab (3m checklist).",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-opportunityrecognitionpanel-to-expose-a-symbol-selection-callback-so-that-selecting-an-opportunity-symbol-triggers-the-shared-dashboard-symbol-update-without-requiring-the-user-to-manually-re-select-the-symbol-in-other-tabs",
+      "title": "Update OpportunityRecognitionPanel to expose a symbol-selection callback so that selecting an opportunity symbol triggers the shared Dashboard symbol update (without requiring the user to manually re-select the symbol in other tabs).",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Sincronizar automaticamente o par de trade selecionado na aba Oportunidades com as abas Market, Turn Monitor e 3 Min Checklist",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "projectName": "Sync selected opportunity symbol across Market Turn Monitor and 3m Checklist tabs",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

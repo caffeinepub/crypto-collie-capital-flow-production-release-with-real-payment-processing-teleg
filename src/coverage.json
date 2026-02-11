@@ -1,0 +1,53 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-11T10:54:35.053Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 2,
+    "implemented": 2,
+    "items": [
+      {
+        "id": "REQ-1",
+        "summary": "Create a single shared \"selected trading pair\" state for the Dashboard tabs so that changing the symbol in any one of these places updates the others automatically: (1) the selected opportunity in the Opportunity Recognition (Oportunidades) tab, (2) the Market tab (including Market Turn Monitor), and (3) the Checklist tab (3m checklist).",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/Dashboard.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/Dashboard.tsx"
+        ]
+      },
+      {
+        "id": "REQ-2",
+        "summary": "Update OpportunityRecognitionPanel to expose a symbol-selection callback so that selecting an opportunity symbol triggers the shared Dashboard symbol update (without requiring the user to manually re-select the symbol in other tabs).",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/OpportunityRecognitionPanel.tsx",
+          "frontend/src/pages/Dashboard.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/OpportunityRecognitionPanel.tsx",
+          "frontend/src/pages/Dashboard.tsx"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    "build-request.json",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/src/blob-storage/FileStorage.ts",
+    "frontend/src/blob-storage/StorageClient.ts",
+    "frontend/src/components/OpportunityRecognitionPanel.tsx",
+    "frontend/src/pages/Dashboard.tsx",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}

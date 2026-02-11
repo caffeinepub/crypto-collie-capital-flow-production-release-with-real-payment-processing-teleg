@@ -1,0 +1,50 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-create-a-single-shared-selected-trading-pair-state-for-the-dashboard-tabs-so-that-changing-the-symbol-in-any-one-of-these-places-updates-the-others-automatically-1-the-selected-opportunity-in-the-opportunity-recognition-oportunidades-tab-2-the-market-tab-including-market-turn-monitor-and-3-the-checklist-tab-3m-checklist",
+      "featureTitle": "Create a single shared \"selected trading pair\" state for the Dashboard tabs so that changing the symbol in any one of these places updates the others automatically: (1) the selected opportunity in the Opportunity Recognition (Oportunidades) tab, (2) the Market tab (including Market Turn Monitor), and (3) the Checklist tab (3m checklist).",
+      "files": [
+        "frontend/src/pages/Dashboard.tsx"
+      ],
+      "components": [
+        "blob-storage@1.1.2",
+        "http-outcalls@1.1.1",
+        "authorization@1.0.1",
+        "stripe@1.0.1",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-opportunityrecognitionpanel-to-expose-a-symbol-selection-callback-so-that-selecting-an-opportunity-symbol-triggers-the-shared-dashboard-symbol-update-without-requiring-the-user-to-manually-re-select-the-symbol-in-other-tabs",
+      "featureTitle": "Update OpportunityRecognitionPanel to expose a symbol-selection callback so that selecting an opportunity symbol triggers the shared Dashboard symbol update (without requiring the user to manually re-select the symbol in other tabs).",
+      "files": [
+        "frontend/src/components/OpportunityRecognitionPanel.tsx",
+        "frontend/src/pages/Dashboard.tsx"
+      ],
+      "components": [
+        "blob-storage@1.1.2",
+        "http-outcalls@1.1.1",
+        "authorization@1.0.1",
+        "stripe@1.0.1",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    }
+  ]
+}
