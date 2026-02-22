@@ -25,27 +25,39 @@ export default function Dashboard() {
     <div className="container mx-auto px-4 py-6 sm:py-8 space-y-6">
       {/* Timeframe Indicator */}
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Markets Dashboard</h1>
-        <Badge variant="outline" className="text-sm">
+        <h1 className="text-2xl font-bold text-foreground">Markets Dashboard</h1>
+        <Badge variant="outline" className="text-sm font-bold border">
           {timeframe || '3m'}
         </Badge>
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-4 h-auto p-1">
-          <TabsTrigger value="flow" className="flex items-center gap-2">
+        <TabsList className="grid w-full grid-cols-4 h-auto p-1.5 bg-muted border border-border">
+          <TabsTrigger 
+            value="flow" 
+            className="flex items-center gap-2 data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:border data-[state=active]:border-primary font-semibold"
+          >
             <BarChart3 className="w-4 h-4" />
             <span className="hidden sm:inline">Capital Flow</span>
           </TabsTrigger>
-          <TabsTrigger value="ranking" className="flex items-center gap-2">
+          <TabsTrigger 
+            value="ranking" 
+            className="flex items-center gap-2 data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:border data-[state=active]:border-primary font-semibold"
+          >
             <TrendingUp className="w-4 h-4" />
             <span className="hidden sm:inline">Opportunity Recognition</span>
           </TabsTrigger>
-          <TabsTrigger value="market" className="flex items-center gap-2">
+          <TabsTrigger 
+            value="market" 
+            className="flex items-center gap-2 data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:border data-[state=active]:border-primary font-semibold"
+          >
             <Layers className="w-4 h-4" />
             <span className="hidden sm:inline">Market</span>
           </TabsTrigger>
-          <TabsTrigger value="checklist" className="flex items-center gap-2">
+          <TabsTrigger 
+            value="checklist" 
+            className="flex items-center gap-2 data-[state=active]:bg-card data-[state=active]:shadow-md data-[state=active]:border data-[state=active]:border-primary font-semibold"
+          >
             <ListChecks className="w-4 h-4" />
             <span className="hidden sm:inline">Checklist</span>
           </TabsTrigger>

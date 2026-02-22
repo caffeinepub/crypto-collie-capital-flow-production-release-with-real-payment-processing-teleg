@@ -1,11 +1,12 @@
 # Specification
 
 ## Summary
-**Goal:** Keep the selected trading pair (symbol) synchronized across the Opportunity Recognition (Oportunidades), Market (Market Turn Monitor), and Checklist (3m checklist) dashboard tabs.
+**Goal:** Update all dialog boxes and pop-ups with bold technological styling using the emerald/cyan gradient color scheme from the capital flow page.
 
 **Planned changes:**
-- Introduce a single shared “selected trading pair” state at the Dashboard level and wire it to the symbol selectors/inputs used by the Opportunity Recognition, Market, and Checklist tabs.
-- Update OpportunityRecognitionPanel to expose a symbol-selection callback (e.g., `onSelectSymbol(symbol)`) that is invoked when an opportunity row is clicked, so it updates the shared symbol while preserving the existing details dialog behavior.
-- Ensure the shared symbol defaults to `BTCUSDT` on first load (matching current behavior).
+- Apply emerald/cyan gradient backgrounds with dark overlays to all modal dialogs (SubscriptionModal, ProfileSetupModal, PaymentConfirmationModal)
+- Remove all transparent backgrounds from dialog boxes and replace with solid dark backgrounds
+- Match the technological aesthetic of the GlobalCapitalFlow component across all modals
+- Ensure proper contrast and readability with the new color scheme
 
-**User-visible outcome:** Selecting a symbol in any of the three tabs automatically updates the selected symbol in the other two tabs, and the Market Turn Monitor and 3m Checklist panels render using the same currently selected trading pair.
+**User-visible outcome:** All dialog boxes and pop-ups display with a bold, cohesive technological style using emerald and cyan accents on dark backgrounds, matching the visual language of the capital flow page.

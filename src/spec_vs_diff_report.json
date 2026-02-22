@@ -1,30 +1,25 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-11T10:54:35.050Z",
-  "summary": "REQ-1 and REQ-2 appear implemented by lifting a shared `selectedSymbol` state to `frontend/src/pages/Dashboard.tsx`, wiring Market/Checklist selectors and panels to that state, and adding an `onSelectSymbol` callback prop to `OpportunityRecognitionPanel` that is invoked on row click while still opening the details dialog.",
+  "generatedAt": "2026-02-22T11:28:18.720Z",
+  "summary": "The implementation successfully addresses both requirements. All three modal components (SubscriptionModal, ProfileSetupModal, PaymentConfirmationModal) have been updated with solid dark backgrounds (bg-slate-950/bg-slate-900) and emerald/cyan gradient styling consistent with the GlobalCapitalFlow aesthetic. No transparent backgrounds remain in the modals.",
   "missing_requirements": [],
   "hallucinated_features": [
     {
-      "description": "Updated project tracking metadata (`project_state.json`) adding new_feature_requests entries (AR-1/AR-2/AR-3) marked pending, which is not part of the requested frontend symbol-sync behavior.",
-      "reason": "BuildRequest only asks for symbol sync changes in Dashboard tabs and a callback prop in `OpportunityRecognitionPanel`; it does not request changes to project management/state files.",
+      "description": "Added glow utility classes (glow-emerald, glow-cyan, glow-red, glow-amber) in index.css",
+      "reason": "The BuildRequest does not specify creating custom glow shadow utilities. These CSS utilities were added but were not part of the requested modal styling updates.",
       "evidence": [
-        "project_state.json"
-      ]
-    },
-    {
-      "description": "Modified `frontend-file-summaries.txt` with broad claims about many unrelated UI/theme/hook/storage changes beyond the symbol-sync scope.",
-      "reason": "BuildRequest does not request documentation/summary updates nor unrelated feature/theme/hook additions; this file change is outside stated requirements.",
-      "evidence": [
-        "frontend-file-summaries.txt"
+        "frontend/src/index.css"
       ]
     }
   ],
-  "confidence": 0.78,
+  "confidence": 0.92,
   "changed_files": [
     "frontend-file-summaries.txt",
-    "frontend/src/components/OpportunityRecognitionPanel.tsx",
-    "frontend/src/pages/Dashboard.tsx",
+    "frontend/src/components/PaymentConfirmationModal.tsx",
+    "frontend/src/components/ProfileSetupModal.tsx",
+    "frontend/src/components/SubscriptionModal.tsx",
+    "frontend/src/index.css",
     "project_state.json"
   ]
 }

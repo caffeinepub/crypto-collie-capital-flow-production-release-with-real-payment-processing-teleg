@@ -1,6 +1,7 @@
 import { Outlet } from '@tanstack/react-router';
 import Header from './Header';
 import Footer from './Footer';
+import FixedIconIndicators from './FixedIconIndicators';
 
 export default function AppShell() {
   return (
@@ -10,6 +11,7 @@ export default function AppShell() {
         <Outlet />
       </main>
       <Footer />
+      <FixedIconIndicators />
     </div>
   );
 }

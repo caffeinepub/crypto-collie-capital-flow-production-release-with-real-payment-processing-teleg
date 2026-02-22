@@ -1,6 +1,6 @@
-// Opportunity Recognition Panel with multi-strategy ranking
+// Opportunity Recognition Panel with multi-strategy ranking and trading mode filtering
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -14,12 +14,14 @@ import { Target, Info } from 'lucide-react';
 import { useOpportunityRecognitionRanking } from '@/hooks/useOpportunityRecognitionRanking';
 import { STRATEGY_MODALITIES, StrategyModality, OpportunityScore } from '@/lib/opportunityScoring';
 import { TIMEFRAME_OPTIONS, DEFAULT_TIMEFRAMES } from '@/lib/opportunityTimeframes';
+import { TradingMode } from './TradingModeSelector';
 
 interface OpportunityRecognitionPanelProps {
   onSelectSymbol?: (symbol: string) => void;
+  tradingMode?: TradingMode;
 }
 
-export default function OpportunityRecognitionPanel({ onSelectSymbol }: OpportunityRecognitionPanelProps) {
+export default function OpportunityRecognitionPanel({ onSelectSymbol, tradingMode }: OpportunityRecognitionPanelProps) {
   const [selectedModality, setSelectedModality] = useState<StrategyModality>('dayTrade');
   const [selectedTimeframes, setSelectedTimeframes] = useState<string[]>(DEFAULT_TIMEFRAMES);
   const [expandedSymbol, setExpandedSymbol] = useState<string | null>(null);
@@ -31,6 +33,36 @@ export default function OpportunityRecognitionPanel({ onSelectSymbol }: Opportun
     selectedTimeframes,
     20
   );
+
+  // Filter and prioritize opportunities based on trading mode
+  const filteredRankings = useMemo(() => {
+    if (!rankings || !tradingMode) return rankings;
+
+    // Map trading modes to preferred timeframes
+    const timeframePreferences: Record<TradingMode, string[]> = {
+      'Day Trade': ['3m', '15m'],
+      'Swing Trade': ['1h', '4h'],
+      'Scalping': ['3m'],
+      'Position Trading': ['4h', '1h'],
+    };
+
+    const preferredTimeframes = timeframePreferences[tradingMode] || [];
+
+    // Score boost for opportunities matching the trading mode's preferred timeframes
+    return rankings.map(opp => {
+      const hasPreferredTimeframe = preferredTimeframes.some(tf => 
+        selectedTimeframes.includes(tf)
+      );
+      
+      // Boost score slightly if it matches the trading mode preference
+      const boostedScore = hasPreferredTimeframe ? opp.score + 2 : opp.score;
+      
+      return {
+        ...opp,
+        score: Math.min(100, boostedScore), // Cap at 100
+      };
+    }).sort((a, b) => b.score - a.score);
+  }, [rankings, tradingMode, selectedTimeframes]);
 
   const handleTimeframeToggle = (timeframeId: string) => {
     setSelectedTimeframes(prev => {
@@ -95,6 +127,11 @@ export default function OpportunityRecognitionPanel({ onSelectSymbol }: Opportun
           <CardTitle className="flex items-center gap-2">
             <Target className="w-5 h-5" />
             Opportunity Recognition
+            {tradingMode && (
+              <Badge variant="outline" className="ml-2 text-xs">
+                {tradingMode}
+              </Badge>
+            )}
           </CardTitle>
           <CardDescription>
             Multi-strategy ranking based on technical analysis and market structure
@@ -105,10 +142,10 @@ export default function OpportunityRecognitionPanel({ onSelectSymbol }: Opportun
           <div className="space-y-2">
             <Label htmlFor="modality-select">Strategy Modality</Label>
             <Select value={selectedModality} onValueChange={(value) => setSelectedModality(value as StrategyModality)}>
-              <SelectTrigger id="modality-select">
+              <SelectTrigger id="modality-select" className="bg-card border border-border z-[50]">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-popover border border-border z-[100]">
                 {Object.entries(modalitiesByCategory).map(([category, modalities]) => (
                   <div key={category}>
                     <div className="px-2 py-1.5 text-xs font-semibold text-muted-foreground">{category}</div>
@@ -147,7 +184,7 @@ export default function OpportunityRecognitionPanel({ onSelectSymbol }: Opportun
               {selectedTimeframes.map(tfId => {
                 const tf = TIMEFRAME_OPTIONS.find(t => t.id === tfId);
                 return tf ? (
-                  <Badge key={tfId} variant="outline" className="text-xs">
+                  <Badge key={tfId} variant="outline" className="text-xs border">
                     {tf.label}
                   </Badge>
                 ) : null;
@@ -162,7 +199,7 @@ export default function OpportunityRecognitionPanel({ onSelectSymbol }: Opportun
                 <Skeleton key={i} className="h-12 w-full" />
               ))}
             </div>
-          ) : !rankings || rankings.length === 0 ? (
+          ) : !filteredRankings || filteredRankings.length === 0 ? (
             <p className="text-muted-foreground text-center py-8">
               No opportunities found for the selected strategy and timeframes
             </p>
@@ -180,14 +217,14 @@ export default function OpportunityRecognitionPanel({ onSelectSymbol }: Opportun
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {rankings.map((score, index) => {
+                  {filteredRankings.map((score, index) => {
                     const metConditions = score.conditions.filter(c => c.met).length;
                     const totalConditions = score.conditions.length;
 
                     return (
                       <TableRow
                         key={score.symbol}
-                        className="cursor-pointer hover:bg-muted/50"
+                        className="cursor-pointer hover:bg-muted"
                         onClick={() => handleRowClick(score)}
                       >
                         <TableCell className="font-medium text-muted-foreground">
@@ -229,61 +266,65 @@ export default function OpportunityRecognitionPanel({ onSelectSymbol }: Opportun
 
       {/* Detail Dialog */}
       <Dialog open={detailDialogOpen} onOpenChange={setDetailDialogOpen}>
-        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto bg-card border border-border">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              {detailScore?.symbol}
-              <Badge variant={detailScore ? getScoreBadgeVariant(detailScore.score) : 'outline'}>
-                Score: {detailScore?.score}
-              </Badge>
+              <Target className="w-5 h-5" />
+              {detailScore?.symbol} - Detailed Analysis
             </DialogTitle>
             <DialogDescription>
-              {STRATEGY_MODALITIES.find(m => m.id === selectedModality)?.label} strategy analysis
+              Strategy: {STRATEGY_MODALITIES.find(m => m.id === selectedModality)?.label}
             </DialogDescription>
           </DialogHeader>
-
+          
           {detailScore && (
             <div className="space-y-4">
-              {/* Timeframes */}
-              <div>
-                <h4 className="text-sm font-semibold mb-2">Timeframes Analyzed</h4>
-                <div className="flex flex-wrap gap-2">
-                  {detailScore.timeframes.map(tf => (
-                    <Badge key={tf} variant="outline" className="text-xs">
-                      {tf}
-                    </Badge>
-                  ))}
+              {/* Score Summary */}
+              <div className="flex items-center justify-between p-4 bg-muted rounded-lg border border-border">
+                <div>
+                  <p className="text-sm text-muted-foreground">Overall Score</p>
+                  <p className={`text-3xl font-bold ${getScoreColor(detailScore.score)}`}>
+                    {detailScore.score}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Conditions Met</p>
+                  <p className="text-3xl font-bold">
+                    {detailScore.conditions.filter(c => c.met).length}/{detailScore.conditions.length}
+                  </p>
                 </div>
               </div>
 
               {/* Narrative */}
-              <div>
-                <h4 className="text-sm font-semibold mb-2">Analysis</h4>
+              <div className="p-4 bg-secondary rounded-lg border border-border">
+                <p className="text-sm font-medium mb-2">Analysis Summary</p>
                 <p className="text-sm text-muted-foreground">{detailScore.narrative}</p>
               </div>
 
               {/* Conditions Breakdown */}
               <div>
-                <h4 className="text-sm font-semibold mb-2">Conditions Breakdown</h4>
+                <p className="text-sm font-medium mb-3">Conditions Breakdown</p>
                 <div className="space-y-2">
-                  {detailScore.conditions.map(condition => (
+                  {detailScore.conditions.map((condition, idx) => (
                     <div
-                      key={condition.id}
-                      className="flex items-center justify-between p-2 rounded border"
+                      key={idx}
+                      className={`p-3 rounded-lg border ${
+                        condition.met
+                          ? 'bg-success/10 border-success/30'
+                          : 'bg-muted border-border'
+                      }`}
                     >
-                      <div className="flex items-center gap-2">
-                        <div
-                          className={`w-2 h-2 rounded-full ${
-                            condition.met ? 'bg-green-500' : 'bg-red-500'
-                          }`}
-                        />
-                        <span className="text-sm">{condition.label}</span>
-                      </div>
-                      {condition.value && (
-                        <Badge variant="outline" className="text-xs">
-                          {condition.value}
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <p className="text-sm font-medium">{condition.label}</p>
+                          {condition.value && (
+                            <p className="text-xs text-muted-foreground mt-1">{condition.value}</p>
+                          )}
+                        </div>
+                        <Badge variant={condition.met ? 'default' : 'outline'} className="ml-2">
+                          {condition.met ? 'Met' : 'Not Met'}
                         </Badge>
-                      )}
+                      </div>
                     </div>
                   ))}
                 </div>

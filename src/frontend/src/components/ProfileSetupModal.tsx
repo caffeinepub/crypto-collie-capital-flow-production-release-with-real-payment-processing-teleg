@@ -62,24 +62,24 @@ export default function ProfileSetupModal() {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="max-w-md bg-zinc-900 border-cyan-500/20">
+      <DialogContent className="max-w-md bg-slate-950 border-2 border-emerald-500/30 shadow-2xl shadow-emerald-500/20">
         <DialogHeader>
           <div className="flex items-center justify-center mb-4">
-            <div className="p-4 rounded-full bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border border-cyan-500/30">
-              <User className="w-8 h-8 text-cyan-400" />
+            <div className="p-4 rounded-full bg-gradient-to-br from-emerald-500/30 via-cyan-500/30 to-blue-500/30 border-2 border-emerald-500/50 shadow-lg shadow-emerald-500/30">
+              <User className="w-8 h-8 text-emerald-400" />
             </div>
           </div>
-          <DialogTitle className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400 text-center">
+          <DialogTitle className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-400 text-center">
             Bem-vindo ao Crypto Collie!
           </DialogTitle>
-          <DialogDescription className="text-zinc-400 text-center">
+          <DialogDescription className="text-zinc-300 text-center text-base">
             Complete seu perfil para começar a usar a plataforma
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4 py-4">
           <div className="space-y-2">
-            <Label htmlFor="name" className="text-cyan-300">
+            <Label htmlFor="name" className="text-emerald-300 font-semibold">
               Nome *
             </Label>
             <Input
@@ -88,12 +88,12 @@ export default function ProfileSetupModal() {
               placeholder="Seu nome completo"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 focus:border-cyan-500"
+              className="bg-slate-900 border-2 border-zinc-700 text-white placeholder:text-zinc-500 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="email" className="text-cyan-300">
+            <Label htmlFor="email" className="text-emerald-300 font-semibold">
               Email (opcional)
             </Label>
             <Input
@@ -102,14 +102,14 @@ export default function ProfileSetupModal() {
               placeholder="seu@email.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500 focus:border-cyan-500"
+              className="bg-slate-900 border-2 border-zinc-700 text-white placeholder:text-zinc-500 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
             />
           </div>
 
           <Button
             onClick={handleSave}
             disabled={isPending || !name.trim()}
-            className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white font-semibold shadow-lg"
+            className="w-full bg-gradient-to-r from-emerald-500 via-cyan-500 to-blue-500 hover:from-emerald-600 hover:via-cyan-600 hover:to-blue-600 text-white font-semibold shadow-lg shadow-emerald-500/30 border-0"
           >
             {isPending ? (
               <>

@@ -1,53 +1,55 @@
 {
   "kind": "build_request",
-  "title": "Sync selected opportunity symbol across Market Turn Monitor and 3m Checklist tabs",
+  "title": "Update dialog boxes and pop-ups with bold technological styling using capital flow page colors",
+  "projectName": "Crypto Collie Capital Flow",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Create a single shared \"selected trading pair\" state for the Dashboard tabs so that changing the symbol in any one of these places updates the others automatically: (1) the selected opportunity in the Opportunity Recognition (Oportunidades) tab, (2) the Market tab (including Market Turn Monitor), and (3) the Checklist tab (3m checklist).",
+      "text": "Update all dialog boxes and modal components to use a bold technological visual style matching the color scheme from the GlobalCapitalFlow component (emerald/cyan gradient with dark backgrounds)",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "msg-6"
         ],
         "quotes": [
-          "ao selecionar esse ativo .. ele deve automaticamente ser selecionado .. nas abas market turn monitor e 3 min checklist"
+          "deixe as caixas de diálogo e pop-ups com visual ... arrojado tecnológico usando as mesmas cores... da pagina de fluxo de capital"
         ]
       },
       "acceptanceCriteria": [
-        "When a user selects a symbol in Opportunity Recognition, the Market tab selector value updates to that symbol and MarketTrendMonitor renders using that symbol.",
-        "When a user selects a symbol in Opportunity Recognition, the Checklist tab selector value updates to that symbol and ChecklistSignalsPanel3m renders using that symbol.",
-        "When a user changes the symbol using the selector in the Market tab, the Checklist tab uses the same symbol (and vice versa).",
-        "The shared symbol defaults to \"BTCUSDT\" on first load (matching current behavior)."
+        "All modal dialogs (SubscriptionModal, ProfileSetupModal, PaymentConfirmationModal) use emerald/cyan gradient backgrounds with dark overlays",
+        "Dialog styling matches the technological aesthetic of the GlobalCapitalFlow visualization",
+        "No transparent or semi-transparent dialog boxes remain in the application"
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Update OpportunityRecognitionPanel to expose a symbol-selection callback so that selecting an opportunity symbol triggers the shared Dashboard symbol update (without requiring the user to manually re-select the symbol in other tabs).",
+      "text": "Remove all transparent backgrounds from dialog boxes and pop-ups, replacing them with solid dark backgrounds with emerald/cyan accent gradients",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "msg-6"
         ],
         "quotes": [
-          "ao selecionar um par de trade na area de oportunidades.. ... ao selecionar esse ativo .. ele deve automaticamente ser selecionado .. nas abas market turn monitor e 3 min checklist"
+          "Nao de caixas transparentes"
         ]
       },
       "acceptanceCriteria": [
-        "OpportunityRecognitionPanel accepts a prop (e.g., onSelectSymbol(symbol: string)) that is called with the clicked opportunity row’s symbol.",
-        "Clicking an opportunity row still opens the details dialog as it does today, and also updates the shared Dashboard symbol state to the clicked symbol."
+        "No dialog or modal component uses transparent or translucent backgrounds",
+        "All dialogs have solid backgrounds with appropriate contrast for readability",
+        "Background styling uses dark colors with emerald (#10b981) and cyan accents consistent with the capital flow page"
       ]
     }
   ],
   "constraints": [
-    "Do not edit files under frontend/src/components/ui (compose existing UI components instead).",
-    "Do not modify any immutable frontend paths listed in SYSTEM_CONTEXT (e.g., frontend/src/hooks/useInternetIdentity.ts(x), frontend/src/hooks/useActor.ts, frontend/src/main.tsx)."
+    "Do not modify immutable paths: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui",
+    "Maintain existing modal functionality and user interactions",
+    "Preserve accessibility and readability standards"
   ],
   "nonGoals": [
-    "Do not add new backend APIs or persist the selected symbol to the backend.",
-    "Do not change the ranking/scoring logic for opportunities.",
-    "Do not introduce new tabs or navigation flows (e.g., auto-switching tabs) unless required for the symbol sync."
+    "Changing the functionality of existing modals",
+    "Modifying the GlobalCapitalFlow component itself",
+    "Altering non-dialog UI components"
   ],
   "imageRequirements": {
     "required": [],

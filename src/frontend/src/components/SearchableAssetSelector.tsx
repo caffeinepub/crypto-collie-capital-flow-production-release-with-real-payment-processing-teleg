@@ -86,7 +86,7 @@ export default function SearchableAssetSelector({
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            className="w-full justify-between bg-card text-card-foreground border-2 border-border hover:bg-accent/10 hover:border-primary/50 transition-colors"
+            className="w-full justify-between bg-card text-card-foreground border border-border hover:bg-secondary hover:border-primary transition-colors"
           >
             <span className={cn(
               "truncate",
@@ -98,14 +98,14 @@ export default function SearchableAssetSelector({
           </Button>
         </PopoverTrigger>
         <PopoverContent 
-          className="w-[var(--radix-popover-trigger-width)] p-0 bg-popover border-2 border-border shadow-xl"
+          className="w-[var(--radix-popover-trigger-width)] p-0 bg-popover border border-border shadow-xl z-[100]"
           align="start"
           onOpenAutoFocus={(e) => {
             e.preventDefault();
             inputRef.current?.focus();
           }}
         >
-          <div className="flex items-center border-b-2 border-border bg-muted/30 px-3 py-2">
+          <div className="flex items-center border-b border-border bg-muted px-3 py-2">
             <Search className="mr-2 h-4 w-4 shrink-0 text-muted-foreground" />
             <Input
               ref={inputRef}
@@ -132,7 +132,7 @@ export default function SearchableAssetSelector({
                       "hover:bg-accent hover:text-accent-foreground",
                       "focus:bg-accent focus:text-accent-foreground",
                       "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
-                      value === symbol && "bg-primary/10 text-primary font-medium"
+                      value === symbol && "bg-secondary text-primary font-medium"
                     )}
                   >
                     <Check
