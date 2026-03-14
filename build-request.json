@@ -1,0 +1,58 @@
+{
+  "kind": "build_request",
+  "title": "Update dialog boxes and pop-ups with bold technological styling using capital flow page colors",
+  "projectName": "Crypto Collie Capital Flow",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Update all dialog boxes and modal components to use a bold technological visual style matching the color scheme from the GlobalCapitalFlow component (emerald/cyan gradient with dark backgrounds)",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "deixe as caixas de diálogo e pop-ups com visual ... arrojado tecnológico usando as mesmas cores... da pagina de fluxo de capital"
+        ]
+      },
+      "acceptanceCriteria": [
+        "All modal dialogs (SubscriptionModal, ProfileSetupModal, PaymentConfirmationModal) use emerald/cyan gradient backgrounds with dark overlays",
+        "Dialog styling matches the technological aesthetic of the GlobalCapitalFlow visualization",
+        "No transparent or semi-transparent dialog boxes remain in the application"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Remove all transparent backgrounds from dialog boxes and pop-ups, replacing them with solid dark backgrounds with emerald/cyan accent gradients",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "Nao de caixas transparentes"
+        ]
+      },
+      "acceptanceCriteria": [
+        "No dialog or modal component uses transparent or translucent backgrounds",
+        "All dialogs have solid backgrounds with appropriate contrast for readability",
+        "Background styling uses dark colors with emerald (#10b981) and cyan accents consistent with the capital flow page"
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not modify immutable paths: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui",
+    "Maintain existing modal functionality and user interactions",
+    "Preserve accessibility and readability standards"
+  ],
+  "nonGoals": [
+    "Changing the functionality of existing modals",
+    "Modifying the GlobalCapitalFlow component itself",
+    "Altering non-dialog UI components"
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}

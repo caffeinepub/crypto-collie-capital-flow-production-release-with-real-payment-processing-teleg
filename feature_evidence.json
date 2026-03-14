@@ -1,0 +1,54 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-update-all-dialog-boxes-and-modal-components-to-use-a-bold-technological-visual-style-matching-the-color-scheme-from-the-globalcapitalflow-component-emerald-cyan-gradient-with-dark-backgrounds",
+      "featureTitle": "Update all dialog boxes and modal components to use a bold technological visual style matching the color scheme from the GlobalCapitalFlow component (emerald/cyan gradient with dark backgrounds)",
+      "files": [
+        "frontend/src/components/PaymentConfirmationModal.tsx",
+        "frontend/src/components/ProfileSetupModal.tsx",
+        "frontend/src/components/SubscriptionModal.tsx"
+      ],
+      "components": [
+        "blob-storage@1.1.2",
+        "http-outcalls@1.1.1",
+        "authorization@1.0.1",
+        "stripe@1.0.1",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-remove-all-transparent-backgrounds-from-dialog-boxes-and-pop-ups-replacing-them-with-solid-dark-backgrounds-with-emerald-cyan-accent-gradients",
+      "featureTitle": "Remove all transparent backgrounds from dialog boxes and pop-ups, replacing them with solid dark backgrounds with emerald/cyan accent gradients",
+      "files": [
+        "frontend/src/components/PaymentConfirmationModal.tsx",
+        "frontend/src/components/ProfileSetupModal.tsx",
+        "frontend/src/components/SubscriptionModal.tsx",
+        "frontend/src/index.css"
+      ],
+      "components": [
+        "blob-storage@1.1.2",
+        "http-outcalls@1.1.1",
+        "authorization@1.0.1",
+        "stripe@1.0.1",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

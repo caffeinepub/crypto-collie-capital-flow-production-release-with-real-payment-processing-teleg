@@ -1,0 +1,64 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Update dialog boxes and pop-ups with bold technological styling using capital flow page colors",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Update all dialog boxes and modal components to use a bold technological visual style matching the color scheme from the GlobalCapitalFlow component (emerald/cyan gradient with dark backgrounds)",
+      "acceptanceCriteria": [
+        "All modal dialogs (SubscriptionModal, ProfileSetupModal, PaymentConfirmationModal) use emerald/cyan gradient backgrounds with dark overlays",
+        "Dialog styling matches the technological aesthetic of the GlobalCapitalFlow visualization",
+        "No transparent or semi-transparent dialog boxes remain in the application"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/SubscriptionModal.tsx",
+          "operation": "modify",
+          "description": "Update SubscriptionModal styling to use bold technological theme with emerald (#10b981) and cyan gradient backgrounds, solid dark overlay (bg-slate-900/95), and neon glow effects matching the GlobalCapitalFlow aesthetic. Replace any transparent or translucent backgrounds with solid dark backgrounds. Add gradient accents to plan cards and payment method buttons using emerald-to-cyan gradients."
+        },
+        {
+          "path": "frontend/src/components/ProfileSetupModal.tsx",
+          "operation": "modify",
+          "description": "Update ProfileSetupModal styling to use bold technological theme with emerald/cyan gradient header, solid dark background (bg-slate-900/95), and neon border effects. Replace any transparent backgrounds with solid dark backgrounds. Apply emerald accent colors to form inputs and buttons, matching the capital flow page color scheme."
+        },
+        {
+          "path": "frontend/src/components/PaymentConfirmationModal.tsx",
+          "operation": "modify",
+          "description": "Update PaymentConfirmationModal styling to use bold technological theme with solid dark background (bg-slate-900/95), emerald/cyan gradient accents for success states, and red gradient accents for failure states. Add neon glow effects to status icons and action buttons. Ensure no transparent backgrounds remain."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Remove all transparent backgrounds from dialog boxes and pop-ups, replacing them with solid dark backgrounds with emerald/cyan accent gradients",
+      "acceptanceCriteria": [
+        "No dialog or modal component uses transparent or translucent backgrounds",
+        "All dialogs have solid backgrounds with appropriate contrast for readability",
+        "Background styling uses dark colors with emerald (#10b981) and cyan accents consistent with the capital flow page"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/SubscriptionModal.tsx",
+          "operation": "modify",
+          "description": "Ensure the dialog overlay and content container use solid backgrounds only. Replace any bg-opacity or backdrop-blur classes with solid bg-slate-900/95 or bg-slate-950. Add emerald/cyan border gradients and glow effects for visual interest while maintaining solid backgrounds."
+        },
+        {
+          "path": "frontend/src/components/ProfileSetupModal.tsx",
+          "operation": "modify",
+          "description": "Remove any transparent or semi-transparent background classes (bg-opacity, backdrop-blur). Apply solid dark backgrounds (bg-slate-900/95, bg-slate-950) to all dialog elements. Add emerald accent borders and subtle glow effects to maintain technological aesthetic."
+        },
+        {
+          "path": "frontend/src/components/PaymentConfirmationModal.tsx",
+          "operation": "modify",
+          "description": "Eliminate all transparent background properties. Apply solid dark backgrounds throughout the modal (bg-slate-900/95, bg-slate-950). Use emerald/cyan gradient accents on borders, buttons, and status indicators to maintain visual appeal without transparency."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Add or update custom utility classes for modal styling: solid dark backgrounds with emerald/cyan gradient borders, neon glow shadow effects using the existing glow utilities, and technological accent colors. Ensure global modal styles use solid backgrounds consistent with the capital flow page aesthetic."
+        }
+      ]
+    }
+  ]
+}
